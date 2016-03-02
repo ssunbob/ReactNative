@@ -1,0 +1,19 @@
+body{
+	padding: 0;
+	margin: 0;
+}
+.container{
+	background: #6435c9;
+	padding: 10px;
+}
+.item{
+	box-shadow: 1 1px 1px rgba(0,0,0,0.3);
+	background: #fff;
+	color: #ccc;
+	padding: 30px;
+	display: block;
+	text-align: center;
+}
+.item span{
+	font-size: 50px;
+}
