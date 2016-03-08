@@ -30,8 +30,8 @@ class webList extends Component {
 class List extends Component{
   render(){
     return({
-      <View style = {styles.list_item}>
-        <Text style = {styles.list_item_font}>{this.props.title}</Text>
+      <View style={styles.list_item}>
+        <Text style={styles.list_item_font}>{this.props.title}</Text>
       </View>
     });
   }
