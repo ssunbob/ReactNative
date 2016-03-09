@@ -11,7 +11,7 @@ import React, {
   View
 } from 'react-native';
 
-class weblist extends Component {
+class beans extends Component {
   render() {
     return (
       <View style={styles.container}>
@@ -48,4 +48,4 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('weblist', () => weblist);
+AppRegistry.registerComponent('beans', () => beans);
