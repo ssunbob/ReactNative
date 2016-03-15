@@ -15,9 +15,9 @@ import React, {
   ActivityIndicatorIOS,
 } from 'react-native';
 
-const REQUSET_URL = 'http://api.douban.com/v2/movie/top250';
+const REQUSET_URL = 'http://api.douban.com/v2/movie/us_box';
 
-class MovieList extends React.Component {
+class USBox extends React.Component {
 // class name - ml
   constructor(props){
     super(props);
@@ -48,16 +48,16 @@ renderMovieList(movie){
     <View style = {styles.item}>
       <View style = {styles.itemImage}>
         <Image
-          source={{uri:movie.images.small}}
+          source={{uri:movie.subject.images.small}}
           style={styles.image} 
         />    
       </View>
       <View style={styles.itemContent}>
-        <Text style={styles.itemHeader}>{movie.title}</Text>
+        <Text style={styles.itemHeader}>{movie.subject.title}</Text>
         <Text style={styles.itemMeta}>
-          {movie.original_title} ({movie.year})
+          {movie.subject.original_title} ({movie.subject.year})
         </Text>
-        <Text style={styles.redText}>{movie.rating.average}</Text>
+        <Text style={styles.redText}>{movie.subject.rating.average}</Text>
       </View>
     </View>
     );
@@ -86,5 +86,5 @@ renderMovieList(movie){
   }
 }
 
-export { MovieList as default };
+export { USBox as default };
 //输出 export
