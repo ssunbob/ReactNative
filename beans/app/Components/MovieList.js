@@ -4,11 +4,9 @@
  */
 'use strict';
 
-import styles from './app/Styles/Main';
-
+import styles from '../Styles/Main';
+// ../ shangyijimulu
 import React, {
-  AppRegistry,
-  Component,
   StyleSheet,
   Text,
   View,
@@ -18,8 +16,8 @@ import React, {
 
 const REQUSET_URL = 'http://api.douban.com/v2/movie/top250';
 
-class beans extends Component {
-
+class MovieList extends Component {
+// class name
   constructor(props){
     super(props);
 
@@ -86,6 +84,5 @@ renderMovieList(movie){
   }
 }
 
-
-
-AppRegistry.registerComponent('beans', () => beans);
+export {MovieList as default};
+//shuchu export
