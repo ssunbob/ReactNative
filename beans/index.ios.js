@@ -6,8 +6,9 @@
 
 import styles from './app/Styles/Main';
 import icons from './app/Assets/icon';
-import MovieList from './app/Components/MovieList';
+//import MovieList from './app/Components/MovieList';
 import USBox from './app/Components/USBox';
+import Featured from './app/Components/Featured';
 //dangqianmulu
 import React, {
   AppRegistry,
@@ -27,7 +28,7 @@ class beans extends Component {
   constructor(props){
     super(props);
     this.state = {
-      selectedTab:'us_box'
+      selectedTab:'featured'
     };
   }
 
@@ -48,7 +49,7 @@ class beans extends Component {
           });
         }}
         >
-          <MovieList />
+          <Featured />
         </TabBarIOS.Item>
         <TabBarIOS.Item
         //systemIcon="most-viewed"
@@ -66,6 +67,8 @@ class beans extends Component {
         </TabBarIOS.Item>
       </TabBarIOS>
       //<MovieList />
+      //<USBox />
+      //<Featured />
       //listview 数据源 模板 数组 字典 key
 
     );

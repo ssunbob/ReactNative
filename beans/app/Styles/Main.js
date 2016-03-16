@@ -9,7 +9,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection:'row',
     backgroundColor: '#eae7ff',
-    paddingTop: 23,
   },
   loading:{
     flex: 1,
@@ -27,7 +26,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: 'rgba(100,52,201,0.1)',
     paddingBottom: 6,
-    marginBottom: 6,
+    paddingTop: 6,
   },
   itemContent:{
     flex:1,

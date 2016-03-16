@@ -5,6 +5,8 @@
 'use strict';
 
 import styles from '../Styles/Main';
+
+import MovieDetail from './MovieDetail';
 // ../ shangyijimulu
 import React, {
   StyleSheet,
@@ -13,6 +15,7 @@ import React, {
   ListView,
   Image,
   ActivityIndicatorIOS,
+  TouchableHighlight,
 } from 'react-native';
 
 const REQUSET_URL = 'http://api.douban.com/v2/movie/top250';
@@ -42,9 +45,22 @@ class MovieList extends React.Component {
       })
       .done()
   }
+showMovieDetail(movie){
+  this.props.navigator.push({
+    title:movie.title,
+    component:MovieDetail,
+    passProps:{movie}
+  });
 
+}
 renderMovieList(movie){
   return(
+    <TouchableHighlight
+      underlayColor="rgba(34,26,38,0.1)"
+      onPress={() =>
+        this.showMovieDetail(movie)
+      }
+    >
     <View style = {styles.item}>
       <View style = {styles.itemImage}>
         <Image
@@ -60,12 +76,13 @@ renderMovieList(movie){
         <Text style={styles.redText}>{movie.rating.average}</Text>
       </View>
     </View>
+    </TouchableHighlight>
     );
 }
   render() {
     if(!this.state.loaded){
       return(
-        <View style={styles.container}>
+        <View style={[styles.container,{paddingTop:60}]}>
           <View style={styles.loading}>
             <Text>加载中...</Text>
             <ActivityIndicatorIOS  />
@@ -75,10 +92,10 @@ renderMovieList(movie){
     }
     return (
       //listview 数据源 模板 数组 字典 key
-      <View style={styles.container}>
+      <View style={[styles.container,{paddingTop:60,paddingBottom:50}]}>
         <ListView
           dataSource={this.state.movies}
-          renderRow={this.renderMovieList}
+          renderRow={this.renderMovieList.bind(this)}
           />
 
       </View>
