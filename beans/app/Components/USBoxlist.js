@@ -6,7 +6,7 @@
 
 import styles from '../Styles/Main';
 
-import MovieDetail from './MovieDetail';
+import USBoxDetail from './USBoxDetail';
 // ../ shangyijimulu
 import React, {
   StyleSheet,
@@ -18,9 +18,9 @@ import React, {
   TouchableHighlight,
 } from 'react-native';
 
-const REQUSET_URL = 'http://api.douban.com/v2/movie/top250';
+const REQUSET_URL = 'http://api.douban.com/v2/movie/us_box';
 
-class MovieList extends React.Component {
+class USBoxlist extends React.Component {
 // class name - ml
   constructor(props){
     super(props);
@@ -47,33 +47,34 @@ class MovieList extends React.Component {
   }
 showMovieDetail(movie){
   this.props.navigator.push({
-    title:movie.title,
-    component:MovieDetail,
+    title:movie.subject.title,
+    component:USBoxDetail,
     passProps:{movie}
   });
 
 }
 renderMovieList(movie){
+
   return(
     <TouchableHighlight
-      underlayColor="rgba(34,26,38,0.1)"
-      onPress={() =>
-        this.showMovieDetail(movie)
-      }
-    >
+    underlayColor="rgba(34,26,38,0.1)"
+    onPress={() =>
+      this.showMovieDetail(movie)
+    }
+    >    
     <View style = {styles.item}>
       <View style = {styles.itemImage}>
         <Image
-          source={{uri:movie.images.small}}
+          source={{uri:movie.subject.images.small}}
           style={styles.image} 
         />    
       </View>
       <View style={styles.itemContent}>
-        <Text style={styles.itemHeader}>{movie.title}</Text>
+        <Text style={styles.itemHeader}>{movie.subject.title}</Text>
         <Text style={styles.itemMeta}>
-          {movie.original_title} ({movie.year})
+          {movie.subject.original_title} ({movie.subject.year})
         </Text>
-        <Text style={styles.redText}>{movie.rating.average}</Text>
+        <Text style={styles.redText}>{movie.subject.rating.average}</Text>
       </View>
     </View>
     </TouchableHighlight>
@@ -84,9 +85,9 @@ renderMovieList(movie){
       return(
         <View style={[styles.container,{paddingTop:60}]}>
           <View style={styles.loading}>
-            <ActivityIndicatorIOS  
-            size='large'
-            color='#6435c9'
+            <ActivityIndicatorIOS
+              size='large'
+              color='#6435c9'
             />
           </View>
         </View>
@@ -105,5 +106,5 @@ renderMovieList(movie){
   }
 }
 
-export { MovieList as default };
+export { USBoxlist as default };
 //输出 export

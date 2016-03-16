@@ -7,7 +7,7 @@ let {StyleSheet} = React;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection:'row',
+    //flexDirection:'row',
     backgroundColor: '#eae7ff',
   },
   loading:{
@@ -48,6 +48,13 @@ const styles = StyleSheet.create({
   redText:{
     color:'#db2828',
     fontSize:15
+  },
+  itemText:{
+    fontSize:16,
+    fontFamily:'Helvetica Neue',
+    fontWeight:'300',
+    color:'rgba(0,0,0,0.8)',
+    lineHeight:26,
   }
 });
 

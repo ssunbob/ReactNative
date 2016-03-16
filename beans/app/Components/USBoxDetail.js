@@ -15,7 +15,7 @@ import React, {
   ActivityIndicatorIOS,
 } from 'react-native';
 
-class MovieDetail extends React.Component{
+class USBoxDetail extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
@@ -23,7 +23,7 @@ class MovieDetail extends React.Component{
 			loaded:false,
 		};
 
-	const REQUEST_URL = `https://api.douban.com//v2/movie/subject/${this.props.movie.id}`;
+	const REQUEST_URL = `https://api.douban.com//v2/movie/subject/${this.props.movie.subject.id}`;
 	this.fetchData(REQUEST_URL);
 	}
 
@@ -69,4 +69,4 @@ class MovieDetail extends React.Component{
 		);
 	}
 }
-export {MovieDetail as default}
+export {USBoxDetail as default}

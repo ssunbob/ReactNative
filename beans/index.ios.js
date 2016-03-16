@@ -7,8 +7,9 @@
 import styles from './app/Styles/Main';
 import icons from './app/Assets/icon';
 //import MovieList from './app/Components/MovieList';
-import USBox from './app/Components/USBox';
 import Featured from './app/Components/Featured';
+//import USBox from './app/Components/USBox';
+import USBox from './app/Components/USBox';
 //dangqianmulu
 import React, {
   AppRegistry,

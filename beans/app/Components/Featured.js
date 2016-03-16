@@ -15,6 +15,7 @@ let {
 
 class Featured extends React.Component {
 	render() {
+		
 		return (
 			<NavigatorIOS 
 				style={styles.container}
