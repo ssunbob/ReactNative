@@ -10,6 +10,7 @@ import icons from './app/Assets/icon';
 import Featured from './app/Components/Featured';
 //import USBox from './app/Components/USBox';
 import USBox from './app/Components/USBox';
+import Search from './app/Components/Search';
 //dangqianmulu
 import React, {
   AppRegistry,
@@ -65,6 +66,20 @@ class beans extends Component {
         }}
         >
           <USBox />
+        </TabBarIOS.Item>
+        <TabBarIOS.Item
+        //systemIcon="most-viewed"
+        icon={{uri:icons.search,scale:4.6}}
+        title="搜索"
+        selected={this.state.selectedTab === 'search'}
+        selectedIcon={{uri:icons.search,scale:4.6}}
+        onPress={() => {
+          this.setState({
+            selectedTab:'search'
+          });
+        }}
+        >
+          <Search />
         </TabBarIOS.Item>
       </TabBarIOS>
       //<MovieList />
