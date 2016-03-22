@@ -55,7 +55,13 @@ const styles = StyleSheet.create({
     fontWeight:'300',
     color:'rgba(0,0,0,0.8)',
     lineHeight:26,
-  }
+  },
+  searchHeader:{
+    color:'rgba(0,0,0,0.8)',
+    fontSize:16,
+    marginTop:25,
+    marginLeft:8
+  },
 });
 
 export {styles as default};
