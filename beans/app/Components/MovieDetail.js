@@ -10,6 +10,7 @@ import React, {
   StyleSheet,
   Text,
   View,
+  ScrollView,
   ListView,
   Image,
   ActivityIndicatorIOS,
@@ -61,11 +62,15 @@ class MovieDetail extends React.Component{
     	);
     });
 		return(
-			<View style={[styles.container,{paddingTop:70}]}>
+      <ScrollView
+        scrollEventThrottle={200}
+        contentInset={{top: 0}}
+        style={[styles.container,{paddingTop:70}]}>
 				<View style={[styles.item,{flexDirection:'column',marginLeft:5,marginRight:5,}]}>
 					{summary}
 				</View>
-			</View>
+      </ScrollView>
+			//</View>
 		);
 	}
 }
