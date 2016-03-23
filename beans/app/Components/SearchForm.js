@@ -119,8 +119,9 @@ searchHistory(){
         this.props.navigator.push({
           title:responseData.title,
           component:SearchResult,
-          passProps:{
-            result:responseData.subjects
+          passProps:{// chuan dicanshu 
+            result:responseData,
+            query:this.state.query,
           }
         })
       })

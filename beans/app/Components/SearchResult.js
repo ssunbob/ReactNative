@@ -21,15 +21,44 @@ class SearchResult extends React.Component {
 // class name - ml
   constructor(props){
     super(props);
-    let dataSource = new ListView.DataSource({
+    this.dataSource = new ListView.DataSource({
       rowHasChanged:(row1,row2) => row1 !== row2
     });
       
     this.state ={
-      movies:dataSource.cloneWithRows(this.props.result)//push > result > clone
+      movies:this.props.result.subjects,//push > result > clone
+      total:this.props.result.total,
+      count:this.props.result.count,
+      start:this.props.result.start,
+      query:this.props.query,
     }
-  }
 
+    this.REQUEST_URL = 'http://api.douban.com/v2/movie/search';
+  }
+  requestURL(
+    url = this.REQUSET_URL,
+    count = this.state.count,
+    start = this.state.start,
+    query = this.state.query
+    ){
+    return(
+      `${url}?q=${query}&count=${count}&start=${start}`
+      )
+  }
+  // fetchData(){
+  //   fetch(this.requestURL())
+  //     .then(response => response.json())
+  //     .then(responseData => {
+  //       let newStart = responseData.start + responseData.count; //xin kaishidian
+  //       this.setState({
+  //         movies:responseData.subjects,
+  //         loaded:true,
+  //         total:responseData.total,
+  //         start:newStart,
+  //       });
+  //     })
+  //     .done()
+  // }
 showMovieDetail(movie){
   this.props.navigator.push({
     title:movie.title,
@@ -65,6 +94,36 @@ renderMovieList(movie){
     </TouchableHighlight>
     );
 }
+  onEndReached(){
+    console.log('end reached! start:${this,state.start},total:${this.state.total}');
+    if (this.state.total > this.state.start) {
+      this.loadMore();
+    }
+  }
+  loadMore(){
+    fetch(this.requestURL())
+    .then(response => response.json())
+    .then(responseData => {
+      let newStart = responseData.start + responseData.count; //xin kaishidian
+      this.setState({
+        movies:[...this.state.movies,...responseData.subjects],
+        start:newStart,
+      });
+    })
+  }
+  renderFooter(){
+    if (this.state.total > this.state.start) {
+      return(
+        <View style={{marginVertical:20,paddingBottom:50,alignSelf:'center'}}>
+          <ActivityIndicatorIOS/>
+        </View>
+        );
+    }else{
+        <View style={{marginVertical:20,paddingBottom:50,alignSelf:'center'}}>
+          <Text style={{color:'rgba(0,0,0,0.5)'}}>没有可以显示的内容了:)</Text>
+        </View>
+    }
+  }
   render() {
     //panduanzairuzhuangtai
     // if(!this.state.loaded){
@@ -83,7 +142,11 @@ renderMovieList(movie){
       //listview 数据源 模板 数组 字典 key
       <View style={[styles.container,{paddingTop:0,paddingBottom:0}]}>
         <ListView
-          dataSource={this.state.movies}
+          renderFooter={this.renderFooter.bind(this)}
+          pageSize={this.state.count}
+          onEndReached={this.onEndReached.bind(this)}
+          initialListSize={this.state.count}
+          dataSource={this.dataSource.cloneWithRows(this.state.movies)}
           renderRow={this.renderMovieList.bind(this)}
           />
 
