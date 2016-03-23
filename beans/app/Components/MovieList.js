@@ -18,7 +18,7 @@ import React, {
   TouchableHighlight,
 } from 'react-native';
 
-const REQUSET_URL = 'http://api.douban.com/v2/movie/top250';
+//const REQUSET_URL = 'http://api.douban.com/v2/movie/top250';
 
 class MovieList extends React.Component {
 // class name - ml
@@ -26,21 +26,39 @@ class MovieList extends React.Component {
     super(props);
 
     this.state = {
-      movies:new ListView.DataSource({
-      rowHasChanged:(row1,row2) => row1 !== row2
-    }),
-      loaded:false
+      movies:[],
+      loaded:false,
+      count:20,
+      start:0,
+      total:10,
     };
+
+    this.REQUSET_URL = 'http://api.douban.com/v2/movie/top250';
+    this.dataSource = new ListView.DataSource({
+            rowHasChanged:(row1,row2) => row1 !== row2
+          });
     this.fetchData();
   }
 
+requestURL(
+  url = this.REQUSET_URL,
+  count = this.state.count,
+  start = this.state.start
+  ){
+  return(
+    `${url}?count=${count}&start=${start}`
+    )
+}
   fetchData(){
-    fetch(REQUSET_URL)
+    fetch(this.requestURL())
       .then(response => response.json())
       .then(responseData => {
+        let newStart = responseData.start + responseData.count; //xin kaishidian
         this.setState({
-          movies:this.state.movies.cloneWithRows(responseData.subjects),
-          loaded:true
+          movies:responseData.subjects,
+          loaded:true,
+          total:responseData.total,
+          start:newStart,
         });
       })
       .done()
@@ -79,6 +97,37 @@ renderMovieList(movie){
     </TouchableHighlight>
     );
 }
+    onEndReached(){
+      console.log('end reached! start:${this,state.start},total:${this.state.total}');
+      if (this.state.total > this.state.start) {
+        this.loadMore();
+      }
+    }
+    loadMore(){
+      fetch(this.requestURL())
+      .then(response => response.json())
+      .then(responseData => {
+        let newStart = responseData.start + responseData.count; //xin kaishidian
+        this.setState({
+          movies:[...this.state.movies,...responseData.subjects],
+          start:newStart,
+        });
+      })
+    }
+
+    renderFooter(){
+      if (this.state.total > this.state.start) {
+        return(
+          <View style={{marginVertical:20,paddingBottom:50,alignSelf:'center'}}>
+            <ActivityIndicatorIOS/>
+          </View>
+          );
+      }else{
+          <View style={{marginVertical:20,paddingBottom:50,alignSelf:'center'}}>
+            <Text style={{color:'rgba(0,0,0,0.5)'}}>没有可以显示的内容了:)</Text>
+          </View>
+      }
+    }
   render() {
     if(!this.state.loaded){
       return(
@@ -92,11 +141,17 @@ renderMovieList(movie){
         </View>
         );
     }
+
     return (
       //listview 数据源 模板 数组 字典 key
       <View style={[styles.container,{paddingTop:60,paddingBottom:50}]}>
         <ListView
-          dataSource={this.state.movies}
+        renderFooter={this.renderFooter.bind(this)}
+        pageSize={this.state.count}
+        onEndReached={this.onEndReached.bind(this)}
+        initialListSize={this.state.count}
+          dataSource={this.dataSource.cloneWithRows(this.state.movies)}
+          //shuzu geshihua
           renderRow={this.renderMovieList.bind(this)}
           />
 

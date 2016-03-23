@@ -30,7 +30,7 @@ class beans extends Component {
   constructor(props){
     super(props);
     this.state = {
-      selectedTab:'search'
+      selectedTab:'featured'
     };
     // gouzhaoqi gaichuzhi
   }
