@@ -15,6 +15,12 @@ const styles = StyleSheet.create({
     justifyContent:'center',
     alignItems: 'center',
   },
+  deleteIcon:{
+    width:20,
+    height:20,
+    margin:8,
+    opacity:0.6,
+  },
   image:{
     width:100,
     height:150,

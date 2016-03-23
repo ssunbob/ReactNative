@@ -65,7 +65,7 @@ class MovieDetail extends React.Component{
       <ScrollView
         scrollEventThrottle={200}
         contentInset={{top: 0}}
-        style={[styles.container,{paddingTop:70}]}>
+        style={[styles.container,{paddingTop:70,paddingBottom:50}]}>
 				<View style={[styles.item,{flexDirection:'column',marginLeft:5,marginRight:5,}]}>
 					{summary}
 				</View>

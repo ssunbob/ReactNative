@@ -8,6 +8,7 @@ import styles from '../Styles/Main';
 
 //import USBoxDetail from './USBoxDetail';
 import SearchResult from './SearchResult';
+import icons from '../Assets/icon';
 // ../ shangyijimulu
 import React, {
   StyleSheet,
@@ -18,6 +19,7 @@ import React, {
   ActivityIndicatorIOS,
   TouchableHighlight,
   TextInput,
+  AsyncStorage,//ben di cun chu
 } from 'react-native';
 
 //const REQUSET_URL = 'http://api.douban.com/v2/movie/search?q={text}';
@@ -32,18 +34,55 @@ constructor(props){
   this.state={
     query:'',
     loaded:true,//seart search
-    searchHistory:['frog','bob'],
+    searchHistory:[],
+  }
+  AsyncStorage.getItem('searchHistory')
+    .then((searchHistory) =>{
+        if (searchHistory) {
+          this.setState({
+          searchHistory:JSON.parse(searchHistory)
+        });
+      }
+    });
+}
+async search(item){
+  try{
+    await this.setState({
+      query:item
+    });
+    this.fetchData();
+  }catch(error){
+    console.log(error);
   }
 }
 
+deleteSearchHistoryItem(item){
+  let newSearchHistory = new Set(this.state.searchHistory);
+  newSearchHistory.delete(item);
+  this.setState({
+    searchHistory:[...newSearchHistory]
+  });
+  AsyncStorage.setItem(
+      'searchHistory',JSON.stringify([...newSearchHistory])
+      //shuzuzhuanhuacheng zifuchuan
+      //bendi cunchu
+    );
+}
 renderSearchHistoryList(item){
   return(
     <TouchableHighlight
       underlayColor="rgba(34,26,38,0.1)"
-      onPress={() => {}
+      onPress={() => this.search(item)
       }
     >
     <View style = {styles.item}>
+    <TouchableHighlight
+    onPress={() => this.deleteSearchHistoryItem(item)}
+    underlayColor="rgba(34,26,38,0.1)">
+      <Image
+      style={styles.deleteIcon}
+      source={{uri:icons.delete}} />
+      </TouchableHighlight>
       <View style={styles.itemContent}>
         <Text style={styles.itemHeader}>{item}</Text>
       </View>
@@ -52,7 +91,21 @@ renderSearchHistoryList(item){
     );
 }
 
+searchHistory(){
+  let newSearchHistory = [...new Set([this.state.query,...this.state.searchHistory])]
+// zhuijia shuzu
+// chongfu panduan
+  this.setState({
+    searchHistory:newSearchHistory
+  });
+
+  AsyncStorage.setItem(
+      'searchHistory',JSON.stringify(newSearchHistory)
+    );
+// 改变数组
+}
   fetchData(){
+    this.searchHistory();
     this.setState({
       loaded:false,
     });
@@ -62,7 +115,6 @@ renderSearchHistoryList(item){
       .then(responseData => {
         this.setState({
           loaded:true,
-
         })
         this.props.navigator.push({
           title:responseData.title,
@@ -88,6 +140,7 @@ renderSearchHistoryList(item){
           borderBottomWidth:1,
         }}>
         <TextInput 
+            value={this.state.query}// show text while searching
             style={{height:50}}
             placeholder='搜索......'
             clearButtonMode="while-editing"
