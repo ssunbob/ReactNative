@@ -1,0 +1,24 @@
+[
+	{
+		"userId":"0001",
+		"userName":"宋江",
+		"password":"001",
+		"partment":"树莓",
+		"tel":"18641104411",
+		"email":"test@qq.com",
+		"tag":"研发",
+		"creater":"wlh",
+		"token":"didi",
+	},
+	{
+		"userId":"0002",
+		"userName":"dssd",
+		"password":"001",
+		"partment":"树莓",
+		"tel":"18641104411",
+		"email":"test@qq.com",
+		"tag":"研发",
+		"creater":"wlh",
+		"token":"didi"
+	}
+]
