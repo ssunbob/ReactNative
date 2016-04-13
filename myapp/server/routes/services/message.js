@@ -9,7 +9,7 @@ var Message = {
     app.post('/message/add',this.addMessage);
   },
 // get message
-  addMessage:function (req,res) {
+  getMessage:function (req,res) {
     var key = req.param('key');
     if(key != util.getKey()){
       return res.send({
@@ -40,7 +40,47 @@ var Message = {
   },
 // add message
   addMessage:function (req,res) {
-    
+    var token = req.param('token');
+    var message = req.param('message');
+    if(!token || !message){
+      return res.send({
+        status:0,
+        err:'token or message cant be null'
+      });
+    }
+    fs.readFile(USER_PATH,function (err,data) {
+      if (err) {
+        return res.send({
+          status:0,
+          err:err
+        });
+      }
+      try {
+        var obj = JSON.parse(data);
+        for (var i in obj) {
+          if (obj[i].token === token) {
+          var msgObj = JSON.parse(fs.readFileSync(MESSAGE_PATH));
+          msgObj.push({
+            messageid:util.guid(),
+            userId:obj[i].userId,
+            username:obj[i].username,
+            time:new Date().getFullYear() + '-' + (parseInt(new Date().getMonth()) + 1) + '-' + new Date().getDate(),
+            message:message
+          });
+          fs.writeFileSync(MESSAGE_PATH,jSON.stringify(msgObj));
+          return res.send({
+            status:1
+          });
+        }
+      }
+        return res.send({
+          status:0,
+          err:'token yanzheng error'
+        });
+      } catch (e) {
+
+      }
+    });
   },
 };
 
