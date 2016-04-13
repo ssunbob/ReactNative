@@ -166,22 +166,28 @@ updatePassword : function (req,res) {
 // delete user
 deleteUser : function (req,res) {
   var token = req.param('token');
-  var oldPassword = util.md5(req.param('oldPassword'));
-  var password = util.md5(req.param('password'));
+  var email = req.param('email');
+
   var content = JSON.parse(fs.readFileSync(USER_PATH));
   for(var i in content){
-    if (token === content[i].token && oldPassword === content[i].password) {
-      content[i].password = password;
-      fs.writeFileSync(USER_PATH,JSON.stringify(content));
-      return res.send({
-        status:1,
-        data:'update sucessful'
-      });
+    if (token === content[i].token ) {
+      for(var j in content){
+        if (content[j].email === email){
+          //delete sth...
+          content.splice(j,1);
+          fs.writeFileSync(USER_PATH,JSON.stringify(content));
+          return res.send({
+            status:1,
+            info:content,
+            data:'delete success'
+          });
+        }
+      }
     }
   }
   return res.send({
     status:0,
-    data:'update failed'
+    data:'delete failed'
   });
 },
 
