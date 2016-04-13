@@ -8,7 +8,7 @@ module.exports = {
       return v.toString(16);
     }).toUpperCase();
   },
-  mds:function (password) {
+  md5:function (password) {
     var md5 = crypto.createHash('mds');
     var salt = '(!%$88hs@gophs*)'#sassb9; //zidian
     var newPwd = md5.update(password + salt).digest('hex');
