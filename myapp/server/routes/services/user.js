@@ -105,21 +105,84 @@ login : function (req,res) {
   var token = util.guid() + deviceId;
   var content = JSON.parse(fs.readFileSync(USER_PATH).toString());
   //loop compare
-  for (var i = 0; i < array.length; i++) {
-    array[i]
+  for (var i in content) {
+    // yanzheng pass
+    if (content[i].email === email && content[i].password === password) {
+      content[i]['token'] = token;
+      console.log(content[i]);
+      fs.writeFileSync(USER_PATH,JSON.stringify(content));
+      delete content[i].password;
+      return res.send({
+        status:1,
+        data:content[i]
+      });
+    }
   }
+  return res.send({
+    status:0,
+    data;'username or password error'
+  });
 },
 // login by token
 loginByToken : function (req,res) {
+  var token = req.param('token');
+  var content = JSON.parse(fs.readFileSync(USER_PATH));
 
+  for (var i in content) {
+    if (token === content[i].token) {
+      delete content[i].password;
+      return res.send({
+        status:1,
+        data:content[i]
+      });
+    }
+  }
+  return res.send({
+    status:0,
+    info:'token outdated'
+  });
 },
 // user update password
 updatePassword : function (req,res) {
-
+  var token = req.param('token');
+  var oldPassword = util.md5(req.param('oldPassword'));
+  var password = util.md5(req.param('password'));
+  var content = JSON.parse(fs.readFileSync(USER_PATH));
+  for(var i in content){
+    if (token === content[i].token && oldPassword === content[i].password) {
+      content[i].password = password;
+      fs.writeFileSync(USER_PATH,JSON.stringify(content));
+      return res.send({
+        status:1,
+        data:'update sucessful'
+      });
+    }
+  }
+  return res.send({
+    status:0,
+    data:'update failed'
+  });
 },
 // delete user
 deleteUser : function (req,res) {
-
+  var token = req.param('token');
+  var oldPassword = util.md5(req.param('oldPassword'));
+  var password = util.md5(req.param('password'));
+  var content = JSON.parse(fs.readFileSync(USER_PATH));
+  for(var i in content){
+    if (token === content[i].token && oldPassword === content[i].password) {
+      content[i].password = password;
+      fs.writeFileSync(USER_PATH,JSON.stringify(content));
+      return res.send({
+        status:1,
+        data:'update sucessful'
+      });
+    }
+  }
+  return res.send({
+    status:0,
+    data:'update failed'
+  });
 },
 
 };
