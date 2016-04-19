@@ -6,7 +6,7 @@
 
 import styles from '../Styles/Main';
 
-import MovieSearchResult from './MovieSearchResult';
+import BookSearchResult from './BookSearchResult';
 import icons from '../Assets/icon';
 // ../ shangyijimulu
 import React, {
@@ -21,8 +21,8 @@ import React, {
   AsyncStorage,//ben di cun chu
 } from 'react-native';
 
-class MovieSearchForm extends React.Component {
-// class name - ml
+class BookSearchForm extends React.Component {
+
 constructor(props){
   super(props);
   this.dataSource = new ListView.DataSource({
@@ -31,13 +31,13 @@ constructor(props){
   this.state={
     query:'',
     loaded:true,//seart search
-    moviesearchHistory:[],
+    booksearchHistory:[],
   }
-  AsyncStorage.getItem('moviesearchHistory')
-    .then((moviesearchHistory) =>{
-        if (moviesearchHistory) {
+  AsyncStorage.getItem('booksearchHistory')
+    .then((booksearchHistory) =>{
+        if (booksearchHistory) {
           this.setState({
-          moviesearchHistory:JSON.parse(moviesearchHistory)
+          booksearchHistory:JSON.parse(booksearchHistory)
         });
       }
     });
@@ -53,19 +53,19 @@ async search(item){
   }
 }
 
-deleteMovieSearchHistoryItem(item){
-  let newMovieSearchHistory = new Set(this.state.moviesearchHistory);
-  newMovieSearchHistory.delete(item);
+deleteBookSearchHistoryItem(item){
+  let newBookSearchHistory = new Set(this.state.booksearchHistory);
+  newBookSearchHistory.delete(item);
   this.setState({
-    moviesearchHistory:[...newMovieSearchHistory]
+    booksearchHistory:[...newBookSearchHistory]
   });
   AsyncStorage.setItem(
-      'moviesearchHistory',JSON.stringify([...newMovieSearchHistory])
+      'booksearchHistory',JSON.stringify([...newBookSearchHistory])
       //shuzuzhuanhuacheng zifuchuan
       //bendi cunchu
     );
 }
-renderMovieSearchHistoryList(item){
+renderBookSearchHistoryList(item){
   return(
     <TouchableHighlight
       underlayColor="rgba(34,26,38,0.1)"
@@ -74,7 +74,7 @@ renderMovieSearchHistoryList(item){
     >
     <View style = {styles.item}>
     <TouchableHighlight
-    onPress={() => this.deleteMovieSearchHistoryItem(item)}
+    onPress={() => this.deleteBookSearchHistoryItem(item)}
     underlayColor="rgba(34,26,38,0.1)">
       <Image
       style={styles.deleteIcon}
@@ -88,25 +88,25 @@ renderMovieSearchHistoryList(item){
     );
 }
 
-moviesearchHistory(){
-  let newMovieSearchHistory = [...new Set([this.state.query,...this.state.moviesearchHistory])]
+booksearchHistory(){
+  let newBookSearchHistory = [...new Set([this.state.query,...this.state.booksearchHistory])]
 // zhuijia shuzu
 // chongfu panduan
   this.setState({
-    moviesearchHistory:newMovieSearchHistory
+    booksearchHistory:newBookSearchHistory
   });
 
   AsyncStorage.setItem(
-      'moviesearchHistory',JSON.stringify(newMovieSearchHistory)
+      'booksearchHistory',JSON.stringify(newBookSearchHistory)
     );
 // 改变数组
 }
   fetchData(){
-    this.moviesearchHistory();
+    this.booksearchHistory();
     this.setState({
       loaded:false,
     });
-    const REQUSET_URL = `http://api.douban.com/v2/movie/search?q=${this.state.query}`
+    const REQUSET_URL = `http://api.douban.com/v2/book/search?q=${this.state.query}`
     fetch(REQUSET_URL)
       .then(response => response.json())
       .then(responseData => {
@@ -114,8 +114,8 @@ moviesearchHistory(){
           loaded:true,
         })
         this.props.navigator.push({
-          title:responseData.title,
-          component:MovieSearchResult,
+          title:`搜索 "${this.state.query}" 的结果`,
+          component:BookSearchResult,
           passProps:{// chuan dicanshu
             result:responseData,
             query:this.state.query,
@@ -163,8 +163,8 @@ moviesearchHistory(){
         </View>
         <Text style={styles.searchHeader}>搜索历史</Text>
         <ListView style={{marginBottom:15,paddingLeft:6,paddingRight:6}}
-          dataSource={this.dataSource.cloneWithRows(this.state.moviesearchHistory)}
-          renderRow={this.renderMovieSearchHistoryList.bind(this)}
+          dataSource={this.dataSource.cloneWithRows(this.state.booksearchHistory)}
+          renderRow={this.renderBookSearchHistoryList.bind(this)}
           enableEmptySections={true}
           />
       </View>
@@ -172,5 +172,5 @@ moviesearchHistory(){
   }
 }
 
-export { MovieSearchForm as default };
+export { BookSearchForm as default };
 //输出 export

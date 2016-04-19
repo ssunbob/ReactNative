@@ -5,7 +5,7 @@
 'use strict';
 
 import styles from '../Styles/Main';
-import MovieDetail from './MovieDetail';
+import BookDetail from './BookDetail';
 // ../ shangyijimulu
 import React, {
   StyleSheet,
@@ -17,7 +17,8 @@ import React, {
   TouchableHighlight,
 } from 'react-native';
 
-class MovieSearchResult extends React.Component {
+class BookSearchResult extends React.Component {
+// class name - ml
   constructor(props){
     super(props);
     this.dataSource = new ListView.DataSource({
@@ -25,17 +26,17 @@ class MovieSearchResult extends React.Component {
     });
 
     this.state ={
-      movies:this.props.result.subjects,
+      books:this.props.result.books,//push > result > clone
       total:this.props.result.total,
       count:this.props.result.count,
       start:this.props.result.start,
       query:this.props.query,
     }
 
-    this.REQUEST_URL = `http://api.douban.com/v2/movie/search`;
+    this.REQUEST_URL = `http://api.douban.com/v2/book/search`;
   }
   requestURL(
-    url = `http://api.douban.com/v2/movie/search`,
+    url = `http://api.douban.com/v2/book/search`,
     count = this.state.count,
     start = this.state.start + this.state.count,
     query = this.state.query
@@ -44,43 +45,50 @@ class MovieSearchResult extends React.Component {
       `${url}?q=${query}&count=${count}&start=${start}`
       )
   }
-showMovieDetail(movie){
+
+showMovieDetail(book){
   this.props.navigator.push({
-    title:movie.title,
-    component:MovieDetail,
-    passProps:{movie}
+    title:book.title,
+    component:BookDetail,
+    passProps:{book}
   });
 
 }
-renderMovieList(movie){
+renderMovieList(book){
 
   return(
     <TouchableHighlight
     underlayColor="rgba(34,26,38,0.1)"
     onPress={() =>
-      this.showMovieDetail(movie)
-    }
-    >
-    <View style = {styles.item} key = {movie.id}>
+      this.showMovieDetail(book)
+    }>
+    <View style = {styles.item} key={book.id}>
       <View style = {styles.itemImage}>
         <Image
-          source={{uri:movie.images.small}}
+          source={{uri:book.images.small}}
           style={styles.image}
         />
       </View>
       <View style={styles.itemContent}>
-        <Text style={styles.itemHeader}>{movie.title}</Text>
-        <Text style={styles.itemMeta}>
-          {movie.original_title} ({movie.year})
+        <Text style={styles.itemHeader}>
+          {book.title}
         </Text>
-        <Text style={styles.redText}>{movie.rating.average}</Text>
+        <Text style={styles.itemMeta}>
+          {book.author}著
+        </Text>
+        <Text style={styles.itemMeta}>
+          {book.translator}译
+        </Text>
+        <Text style={styles.itemMeta}>
+          {book.publisher}({book.pubdate})
+        </Text>
+        <Text style={styles.redText}>{book.rating.average}</Text>
       </View>
     </View>
     </TouchableHighlight>
     );
 }
   onEndReached(){
-    console.log('end reached! start:${{this.state.start}},total:${{this.state.total}}');
     if (this.state.total > this.state.start) {
       this.loadMore();
     }
@@ -93,7 +101,7 @@ renderMovieList(movie){
     .then(responseData => {
       let newStart = responseData.start + responseData.count; //xin kaishidian
       this.setState({
-        movies:[...this.state.movies,...responseData.subjects],
+        books:[...this.state.books,...responseData.books],
         start:newStart,
       });
     })
@@ -104,7 +112,7 @@ renderMovieList(movie){
         <View style={{marginVertical:20,paddingBottom:50,alignSelf:'center'}}>
           <ActivityIndicatorIOS/>
         </View>
-        );
+      );
     }else{
       return(
         <View style={{marginVertical:20,paddingBottom:50,alignSelf:'center'}}>
@@ -122,7 +130,7 @@ renderMovieList(movie){
           pageSize={this.state.count}
           onEndReached={this.onEndReached.bind(this)}
           initialListSize={this.state.count}
-          dataSource={this.dataSource.cloneWithRows(this.state.movies)}
+          dataSource={this.dataSource.cloneWithRows(this.state.books)}
           renderRow={this.renderMovieList.bind(this)}
           />
       </View>
@@ -130,5 +138,5 @@ renderMovieList(movie){
   }
 }
 
-export { MovieSearchResult as default };
+export { BookSearchResult as default };
 //输出 export

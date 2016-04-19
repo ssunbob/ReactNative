@@ -7,6 +7,8 @@
 import styles from './app/Styles/Main';
 import icons from './app/Assets/icon';
 import MovieSearch from './app/Components/MovieSearch';
+import BookSearch from './app/Components/BookSearch';
+import MusicSearch from './app/Components/MusicSearch';
 
 import React, {
   AppRegistry,
@@ -24,24 +26,24 @@ class Esou extends Component {
   constructor(props){
     super(props);
     this.state = {
-      selectedTab:'featured'
+      selectedTab:'movie'
     };
     // 构造器 改初值
   }
 
   render() {
     return (
-      <TabBarIOS barTintColor='darkslateblue' tintColor='white'>
+      <TabBarIOS barTintColor='#229132' tintColor='white'>
         <TabBarIOS.Item
         //systemIcon="featured"
-        icon={{uri:icons.star,scale:4.6}}
+        icon={{uri:icons.movie,scale:4.6}}
         title="电影"
-        selectedIcon={{uri:icons.starActive,scale:4.6}}
-        selected={this.state.selectedTab === 'featured'}
-        
+        selectedIcon={{uri:icons.movie,scale:4.6}}
+        selected={this.state.selectedTab === 'movie'}
+
         onPress={() => {
           this.setState({
-            selectedTab:'featured'
+            selectedTab:'movie'
           });
         }}
         >
@@ -49,31 +51,31 @@ class Esou extends Component {
         </TabBarIOS.Item>
         <TabBarIOS.Item
         //systemIcon="most-viewed"
-        icon={{uri:icons.board,scale:4.6}}
+        icon={{uri:icons.book,scale:4.6}}
         title="图书"
-        selected={this.state.selectedTab === 'us_box'}
-        selectedIcon={{uri:icons.boardActive,scale:4.6}}
+        selected={this.state.selectedTab === 'book'}
+        selectedIcon={{uri:icons.book,scale:4.6}}
         onPress={() => {
           this.setState({
-            selectedTab:'us_box'
+            selectedTab:'book'
           });
         }}
         >
-          <MovieSearch />
+          <BookSearch />
         </TabBarIOS.Item>
         <TabBarIOS.Item
         //systemIcon="most-viewed"
-        icon={{uri:icons.search,scale:4.6}}
+        icon={{uri:icons.music,scale:4.6}}
         title="音乐"
-        selected={this.state.selectedTab === 'search'}
-        selectedIcon={{uri:icons.search,scale:4.6}}
+        selected={this.state.selectedTab === 'music'}
+        selectedIcon={{uri:icons.music,scale:4.6}}
         onPress={() => {
           this.setState({
-            selectedTab:'search'
+            selectedTab:'music'
           });
         }}
         >
-          <MovieSearch />
+          <MusicSearch />
         </TabBarIOS.Item>
       </TabBarIOS>
     );

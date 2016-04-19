@@ -1,12 +1,12 @@
 /**
  * Sample React Native App
- * https://github.com/facebook/react-native
+ * https://github.com/facemusic/react-native
  */
 'use strict';
 
 import styles from '../Styles/Main';
 
-import MovieSearchResult from './MovieSearchResult';
+import MusicSearchResult from './MusicSearchResult';
 import icons from '../Assets/icon';
 // ../ shangyijimulu
 import React, {
@@ -21,8 +21,8 @@ import React, {
   AsyncStorage,//ben di cun chu
 } from 'react-native';
 
-class MovieSearchForm extends React.Component {
-// class name - ml
+
+class MusicSearchForm extends React.Component {
 constructor(props){
   super(props);
   this.dataSource = new ListView.DataSource({
@@ -31,13 +31,13 @@ constructor(props){
   this.state={
     query:'',
     loaded:true,//seart search
-    moviesearchHistory:[],
+    musicsearchHistory:[],
   }
-  AsyncStorage.getItem('moviesearchHistory')
-    .then((moviesearchHistory) =>{
-        if (moviesearchHistory) {
+  AsyncStorage.getItem('musicsearchHistory')
+    .then((musicsearchHistory) =>{
+        if (musicsearchHistory) {
           this.setState({
-          moviesearchHistory:JSON.parse(moviesearchHistory)
+          musicsearchHistory:JSON.parse(musicsearchHistory)
         });
       }
     });
@@ -53,19 +53,19 @@ async search(item){
   }
 }
 
-deleteMovieSearchHistoryItem(item){
-  let newMovieSearchHistory = new Set(this.state.moviesearchHistory);
-  newMovieSearchHistory.delete(item);
+deleteMusicSearchHistoryItem(item){
+  let newMusicSearchHistory = new Set(this.state.musicsearchHistory);
+  newMusicSearchHistory.delete(item);
   this.setState({
-    moviesearchHistory:[...newMovieSearchHistory]
+    musicsearchHistory:[...newMusicSearchHistory]
   });
   AsyncStorage.setItem(
-      'moviesearchHistory',JSON.stringify([...newMovieSearchHistory])
+      'musicsearchHistory',JSON.stringify([...newMusicSearchHistory])
       //shuzuzhuanhuacheng zifuchuan
       //bendi cunchu
     );
 }
-renderMovieSearchHistoryList(item){
+renderMusicSearchHistoryList(item){
   return(
     <TouchableHighlight
       underlayColor="rgba(34,26,38,0.1)"
@@ -74,7 +74,7 @@ renderMovieSearchHistoryList(item){
     >
     <View style = {styles.item}>
     <TouchableHighlight
-    onPress={() => this.deleteMovieSearchHistoryItem(item)}
+    onPress={() => this.deleteMusicSearchHistoryItem(item)}
     underlayColor="rgba(34,26,38,0.1)">
       <Image
       style={styles.deleteIcon}
@@ -88,25 +88,25 @@ renderMovieSearchHistoryList(item){
     );
 }
 
-moviesearchHistory(){
-  let newMovieSearchHistory = [...new Set([this.state.query,...this.state.moviesearchHistory])]
+musicsearchHistory(){
+  let newMusicSearchHistory = [...new Set([this.state.query,...this.state.musicsearchHistory])]
 // zhuijia shuzu
 // chongfu panduan
   this.setState({
-    moviesearchHistory:newMovieSearchHistory
+    musicsearchHistory:newMusicSearchHistory
   });
 
   AsyncStorage.setItem(
-      'moviesearchHistory',JSON.stringify(newMovieSearchHistory)
+      'musicsearchHistory',JSON.stringify(newMusicSearchHistory)
     );
 // 改变数组
 }
   fetchData(){
-    this.moviesearchHistory();
+    this.musicsearchHistory();
     this.setState({
       loaded:false,
     });
-    const REQUSET_URL = `http://api.douban.com/v2/movie/search?q=${this.state.query}`
+    const REQUSET_URL = `http://api.douban.com/v2/music/search?q=${this.state.query}`
     fetch(REQUSET_URL)
       .then(response => response.json())
       .then(responseData => {
@@ -114,8 +114,8 @@ moviesearchHistory(){
           loaded:true,
         })
         this.props.navigator.push({
-          title:responseData.title,
-          component:MovieSearchResult,
+          title:`搜索 "${this.state.query}" 的结果`,
+          component:MusicSearchResult,
           passProps:{// chuan dicanshu
             result:responseData,
             query:this.state.query,
@@ -163,8 +163,8 @@ moviesearchHistory(){
         </View>
         <Text style={styles.searchHeader}>搜索历史</Text>
         <ListView style={{marginBottom:15,paddingLeft:6,paddingRight:6}}
-          dataSource={this.dataSource.cloneWithRows(this.state.moviesearchHistory)}
-          renderRow={this.renderMovieSearchHistoryList.bind(this)}
+          dataSource={this.dataSource.cloneWithRows(this.state.musicsearchHistory)}
+          renderRow={this.renderMusicSearchHistoryList.bind(this)}
           enableEmptySections={true}
           />
       </View>
@@ -172,5 +172,5 @@ moviesearchHistory(){
   }
 }
 
-export { MovieSearchForm as default };
+export { MusicSearchForm as default };
 //输出 export

@@ -1,11 +1,11 @@
 /**
  * Sample React Native App
- * https://github.com/facebook/react-native
+ * https://github.com/facemusic/react-native
  */
 'use strict';
 
 import styles from '../Styles/Main';
-import MovieDetail from './MovieDetail';
+import MusicDetail from './MusicDetail';
 // ../ shangyijimulu
 import React, {
   StyleSheet,
@@ -17,25 +17,28 @@ import React, {
   TouchableHighlight,
 } from 'react-native';
 
-class MovieSearchResult extends React.Component {
+class MusicSearchResult extends React.Component {
+// class name - ml
   constructor(props){
     super(props);
-    this.dataSource = new ListView.DataSource({
-      rowHasChanged:(row1,row2) => row1 !== row2
-    });
 
     this.state ={
-      movies:this.props.result.subjects,
+      musics:this.props.result.musics,//push > result > clone
       total:this.props.result.total,
       count:this.props.result.count,
       start:this.props.result.start,
       query:this.props.query,
     }
 
-    this.REQUEST_URL = `http://api.douban.com/v2/movie/search`;
+    this.REQUEST_URL = 'http://api.douban.com/v2/music/search';
+      console.log(this.REQUEST_URL);
+      this.dataSource = new ListView.DataSource({
+        rowHasChanged:(row1,row2) => row1 !== row2
+      });
   }
+
   requestURL(
-    url = `http://api.douban.com/v2/movie/search`,
+    url = 'http://api.douban.com/v2/music/search',
     count = this.state.count,
     start = this.state.start + this.state.count,
     query = this.state.query
@@ -44,43 +47,52 @@ class MovieSearchResult extends React.Component {
       `${url}?q=${query}&count=${count}&start=${start}`
       )
   }
-showMovieDetail(movie){
+
+showMusicDetail(music){
   this.props.navigator.push({
-    title:movie.title,
-    component:MovieDetail,
-    passProps:{movie}
+    title:music.title,
+    component:MusicDetail,
+    passProps:{music}
   });
 
 }
-renderMovieList(movie){
+renderMusicList(music){
 
   return(
     <TouchableHighlight
     underlayColor="rgba(34,26,38,0.1)"
     onPress={() =>
-      this.showMovieDetail(movie)
+      this.showMusicDetail(music)
     }
     >
-    <View style = {styles.item} key = {movie.id}>
+    <View style = {styles.item} key = {music.id}>
       <View style = {styles.itemImage}>
         <Image
-          source={{uri:movie.images.small}}
+          source={{uri:music.image}}
           style={styles.image}
         />
       </View>
       <View style={styles.itemContent}>
-        <Text style={styles.itemHeader}>{movie.title}</Text>
-        <Text style={styles.itemMeta}>
-          {movie.original_title} ({movie.year})
+        <Text style={styles.itemHeader}>
+          {music.title}
         </Text>
-        <Text style={styles.redText}>{movie.rating.average}</Text>
+        <Text style={styles.itemMeta}>
+          {music.alt_title}({music.attrs.pubdate})
+        </Text>
+        <Text style={styles.itemMeta} numberOfLines={1}>
+           {music.attrs.singer} 作品
+        </Text>
+        <Text style={styles.itemMeta}>
+          {music.attrs.publisher}
+        </Text>
+        <Text style={styles.redText}>{music.rating.average}</Text>
       </View>
     </View>
     </TouchableHighlight>
     );
 }
+
   onEndReached(){
-    console.log('end reached! start:${{this.state.start}},total:${{this.state.total}}');
     if (this.state.total > this.state.start) {
       this.loadMore();
     }
@@ -88,12 +100,11 @@ renderMovieList(movie){
   loadMore(){
     console.log(this.requestURL());
     fetch(this.requestURL())
-
     .then(response => response.json())
     .then(responseData => {
       let newStart = responseData.start + responseData.count; //xin kaishidian
       this.setState({
-        movies:[...this.state.movies,...responseData.subjects],
+        musics:[...this.state.musics,...responseData.musics],
         start:newStart,
       });
     })
@@ -122,13 +133,14 @@ renderMovieList(movie){
           pageSize={this.state.count}
           onEndReached={this.onEndReached.bind(this)}
           initialListSize={this.state.count}
-          dataSource={this.dataSource.cloneWithRows(this.state.movies)}
-          renderRow={this.renderMovieList.bind(this)}
+          dataSource={this.dataSource.cloneWithRows(this.state.musics)}
+          renderRow={this.renderMusicList.bind(this)}
           />
+
       </View>
     );
   }
 }
 
-export { MovieSearchResult as default };
+export { MusicSearchResult as default };
 //输出 export

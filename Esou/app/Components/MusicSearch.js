@@ -5,7 +5,7 @@
 
 import React from 'react-native';
 import styles from '../Styles/Main';
-import MovieSearchForm from './MovieSearchForm';
+import MusicSearchForm from './MusicSearchForm';
 
 let {
   Text,
@@ -13,15 +13,15 @@ let {
   NavigatorIOS,
 } = React;
 
-class MovieSearch extends React.Component {
+class MusicSearch extends React.Component {
 	render() {
 
 		return (
 			<NavigatorIOS
 				style={styles.container}
 				initialRoute={{
-					title:'电影搜索',
-					component:MovieSearchForm
+					title:'音乐搜索',
+					component:MusicSearchForm
 				}}
 				shadowHidden={true}
 				barTintColor="#229132"
@@ -33,4 +33,4 @@ class MovieSearch extends React.Component {
 	}
 }
 
-export {MovieSearch as default};
+export {MusicSearch as default};

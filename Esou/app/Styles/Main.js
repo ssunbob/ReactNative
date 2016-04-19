@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     //flexDirection:'row',
-    backgroundColor: '#eae7ff',
+    backgroundColor: '#D7E997',
   },
   loading:{
     flex: 1,

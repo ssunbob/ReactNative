@@ -16,15 +16,15 @@ import React, {
   ActivityIndicatorIOS,
 } from 'react-native';
 
-class MovieDetail extends React.Component{
+class MusicDetail extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
-			movieDetail:'',
+			musicDetail:'',
 			loaded:false,
 		};
 
-	const REQUEST_URL = `https://api.douban.com/v2/movie/subject/${this.props.movie.id}`;
+	const REQUEST_URL = `https://api.douban.com/v2/music/${this.props.music.id}`;
 	this.fetchData(REQUEST_URL);
   console.log(REQUEST_URL);
 	}
@@ -34,7 +34,7 @@ class MovieDetail extends React.Component{
       .then(response => response.json())
       .then(responseData => {
         this.setState({
-          movieDetail:responseData,
+          musicDetail:responseData,
           loaded:true,
         });
         console.log(responseData);
@@ -55,9 +55,9 @@ class MovieDetail extends React.Component{
         );
     }
 
-    let movie = this.state.movieDetail;
+    let music = this.state.musicDetail;
 
-    let summary = movie.summary.split(/\n/).map( p => {
+    let summary = music.summary.split(/\n/).map( p => {
     	return(
     		<View style={{marginBottom:15,paddingLeft:6,paddingRight:6}} key={p}>
     			<Text style={styles.itemText}>　　{p}</Text>
@@ -68,16 +68,17 @@ class MovieDetail extends React.Component{
       <ScrollView
         scrollEventThrottle={200}
         contentInset={{top: 0}}
-        style={[styles.container,{paddingTop:70,marginBottom:50}]}>
-				<View style={[styles.item,{flexDirection:'column',marginLeft:5,marginRight:5,}]}>
-          <Text style={styles.itemHeader}>
-            影片简介
-          </Text>
-          {summary}
-				</View>
+        style={[styles.container,{paddingTop:70,marginBottom:50}]}
+        key = {music.id}>
+        <View style={[styles.item,{flexDirection:'column',marginLeft:5,marginRight:5,}]}>
+          <Text style={styles.itemHeader}>专题详情</Text>
+            {summary}
+          <Text style={styles.itemHeader}>曲目列表</Text>
+          <Text style={styles.itemText}>{music.attrs.tracks}</Text>
+        </View>
       </ScrollView>
 
 		);
 	}
 }
-export {MovieDetail as default}
+export {MusicDetail as default}
