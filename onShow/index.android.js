@@ -14,38 +14,44 @@ import React, {
 class onShow extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Shake or press menu button for dev menu
-        </Text>
+      <View style={styles.grid}>
+				<View style={styles.grid_row}>
+					<Text style={styles.grid_item}>1</Text>
+					<Text style={styles.grid_item}>2</Text>
+				</View>
+				<View style={styles.grid_row}>
+					<Text style={styles.grid_item}>1</Text>
+					<Text style={styles.grid_item}>2</Text>
+					<Text style={styles.grid_item}>3</Text>
+				</View>
+				<View style={styles.grid_row}>
+					<Text style={styles.grid_item}>1</Text>
+					<Text style={styles.grid_item}>2</Text>
+					<Text style={styles.grid_item}>3</Text>
+					<Text style={styles.grid_item}>4</Text>
+				</View>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+	grid:{
+		padding:5,
+		marginTop:25,
+		borderColor:'#e7e7e7',
+	},
+	grid_row:{
+		flex:1,
+		flexDirection:'row',
+		padding:5,
+	},
+	grid_item:{
+		flex:1,
+		backgroundColor:'#e7e7e7',
+		height:30,
+		textAlign:'center',
+	},
 });
 
 AppRegistry.registerComponent('onShow', () => onShow);
