@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   },
   icon:{
   width: 32,
-  height: 32
+  height: 32,
   },
   welcome: {
     fontSize: 20,

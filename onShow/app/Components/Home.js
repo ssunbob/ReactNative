@@ -46,48 +46,70 @@ class Home extends Component {
       </View>
       <View style={styles.grid}>
 				<View style={styles.grid_row}>
-        <TouchableHighlight
-          underlayColor="rgba(34,26,38,0.1)"
-          onPress={() =>
-            this.pagePush('作品展示',explore)
-          }
-        >
-					<View style={[styles.grid_item,styles.grid_left]} >
-               <Image style={styles.icon} source={require('./../Assets/map.png')} resizeMode={Image.resizeMode.contain}/>
-               <Text style={styles.grid_text}>作品展示</Text>
-          </View>
-        </TouchableHighlight>
-        <TouchableHighlight
-          underlayColor="rgba(34,26,38,0.1)"
-          onPress={() =>
-            this.pagePush('开发博客',devblog)
-          }
-        >
-					<View style={[styles.grid_item,styles.grid_right]} >
-             <Image style={styles.icon} source={require('./../Assets/quill.png')} resizeMode={Image.resizeMode.contain}/>
-             <Text style={styles.grid_text}>开发博客</Text>
-          </View>
+          <TouchableHighlight
+            underlayColor="rgba(34,26,38,0.1)"
+            style={[styles.grid_item,styles.grid_left]}
+            onPress={() => this.pagePush('作品展示',explore)}
+          >
+    					<View style={styles.slider_container}>
+                 <Image style={styles.icon} source={require('./../Assets/map.png')} resizeMode={Image.resizeMode.contain}/>
+                 <Text style={styles.grid_text}>作品展示</Text>
+              </View>
+          </TouchableHighlight>
+          <TouchableHighlight
+            underlayColor="rgba(34,26,38,0.1)"
+            style={[styles.grid_item,styles.grid_right]}
+            onPress={() => this.pagePush('开发博客',devblog)}
+          >
+    					<View style={styles.slider_container}>
+                 <Image style={styles.icon} source={require('./../Assets/quill.png')} resizeMode={Image.resizeMode.contain}/>
+                 <Text style={styles.grid_text}>开发博客</Text>
+              </View>
           </TouchableHighlight>
 				</View>
 				<View style={styles.grid_row}>
-					<View style={[styles.grid_item,styles.grid_left]} onPress={() => this.pagePush('图片站',gallery)} >
-             <Image style={styles.icon} source={require('./../Assets/images.png')} resizeMode={Image.resizeMode.contain}/>
-             <Text style={styles.grid_text}>图片站</Text>
+        <TouchableHighlight
+          underlayColor="rgba(34,26,38,0.1)"
+          style={[styles.grid_item,styles.grid_left]}
+          onPress={() => this.pagePush('图片站',gallery)}
+        >
+              <View style={styles.slider_container}>
+                 <Image style={styles.icon} source={require('./../Assets/images.png')} resizeMode={Image.resizeMode.contain}/>
+                 <Text style={styles.grid_text}>图片站</Text>
+              </View>
+          </TouchableHighlight>
+          <TouchableHighlight
+            underlayColor="rgba(34,26,38,0.1)"
+            style={[styles.grid_item,styles.grid_right]}
+            onPress={() =>this.pagePush('团队介绍',ourteam)}
+          >
+              <View style={styles.slider_container}>
+                 <Image style={styles.icon} source={require('./../Assets/magic-wand.png')} resizeMode={Image.resizeMode.contain}/>
+                 <Text style={styles.grid_text}>团队介绍</Text>
+              </View>
+          </TouchableHighlight>
           </View>
-					<View style={[styles.grid_item,styles.grid_right]} onPress={() => this.pagePush('团队介绍',ourteam)} >
-             <Image style={styles.icon} source={require('./../Assets/magic-wand.png')} resizeMode={Image.resizeMode.contain}/>
-             <Text style={styles.grid_text}>团队介绍</Text>
-          </View>
-				</View>
 				<View style={styles.grid_row}>
-					<View style={[styles.grid_item,styles.grid_left]} onPress={() => this.pagePush('关于我们',aboutus)} >
-             <Image style={styles.icon} source={require('./../Assets/users.png')} resizeMode={Image.resizeMode.contain}/>
-             <Text style={styles.grid_text}>关于我们</Text>
-          </View>
-					<View style={[styles.grid_item,styles.grid_right]} onPress={() => this.pagePush('商城',shop)} >
-              <Image style={styles.icon} source={require('./../Assets/cart.png')} resizeMode={Image.resizeMode.contain}/>
-             <Text style={styles.grid_text}>商城</Text>
-          </View>
+          <TouchableHighlight
+            underlayColor="rgba(34,26,38,0.1)"
+            style={[styles.grid_item,styles.grid_left]}
+            onPress={() => this.pagePush('关于我们',aboutus)}
+          >
+              <View style={styles.slider_container}>
+                 <Image style={styles.icon} source={require('./../Assets/users.png')} resizeMode={Image.resizeMode.contain}/>
+                 <Text style={styles.grid_text}>关于我们</Text>
+              </View>
+          </TouchableHighlight>
+          <TouchableHighlight
+            underlayColor="rgba(34,26,38,0.1)"
+            style={[styles.grid_item,styles.grid_right]}
+            onPress={() => this.pagePush('商城',shop)}
+          >
+            <View style={styles.slider_container}>
+                <Image style={styles.icon} source={require('./../Assets/cart.png')} resizeMode={Image.resizeMode.contain}/>
+                <Text style={styles.grid_text}>商城</Text>
+            </View>
+          </TouchableHighlight>
 				</View>
       </View>
      </ScrollView>
