@@ -50,7 +50,17 @@ const styles = StyleSheet.create({
   icon:{
   width: 32,
   height: 32
-  }
+  },
+  welcome: {
+    fontSize: 20,
+    textAlign: 'center',
+    margin: 10,
+  },
+  instructions: {
+    textAlign: 'center',
+    color: '#333333',
+    marginBottom: 5,
+  },
 });
 
 export {styles as default};
