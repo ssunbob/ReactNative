@@ -6,17 +6,21 @@ import React, {
   StyleSheet,
   View,
   ScrollView,
+  WebView,
   Text,
   Image,
 } from 'react-native';
 
 import styles from '../Styles/Main';
 
-class gallery extends Component {
+var DEFAULT_URL = 'http://weibo.com/vczero';
 
+class gallery extends Component {
   constructor(props){
     super(props);
-    this.state = {};
+    this.state = {
+      url:DEFAULT_URL,
+    };
   }
 
   render() {
@@ -26,6 +30,9 @@ class gallery extends Component {
       <Text style={styles.welcome}>
         Welcome to {this.props.title}!
       </Text>
+      <WebView source={{uri: this.state.url}}>
+      </WebView>
+
       </View>
 
       </ScrollView>
