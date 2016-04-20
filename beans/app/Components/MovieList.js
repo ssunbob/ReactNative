@@ -69,8 +69,8 @@ showMovieDetail(movie){
     component:MovieDetail,
     passProps:{movie}
   });
-
 }
+
 renderMovieList(movie){
   return(
     <TouchableHighlight
@@ -83,8 +83,8 @@ renderMovieList(movie){
       <View style = {styles.itemImage}>
         <Image
           source={{uri:movie.images.small}}
-          style={styles.image} 
-        />    
+          style={styles.image}
+        />
       </View>
       <View style={styles.itemContent}>
         <Text style={styles.itemHeader}>{movie.title}</Text>
@@ -133,7 +133,7 @@ renderMovieList(movie){
       return(
         <View style={[styles.container,{paddingTop:60}]}>
           <View style={styles.loading}>
-            <ActivityIndicatorIOS  
+            <ActivityIndicatorIOS
             size='large'
             color='#6435c9'
             />
