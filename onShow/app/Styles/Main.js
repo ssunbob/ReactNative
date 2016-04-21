@@ -47,6 +47,28 @@ const styles = StyleSheet.create({
   grid_right:{
   marginLeft:10/PixelRatio.get(),
   },
+  col_image:{
+    flex:0.3,
+  },
+  list_header:{
+    fontSize:18,
+    fontFamily:'Helvetica Neue',
+    fontWeight:'300',
+    color:"#6435c9",
+    marginBottom:6,
+    textAlign:'left',
+  },
+  list_meta:{
+    fontSize: 16,
+    color:'rgba(0,0,0,0.6)',
+    marginBottom:6,
+    textAlign:'left',
+  },
+  image:{
+    width:100,
+    height:150,
+    margin:6,
+  },
   icon:{
   width: 32,
   height: 32,

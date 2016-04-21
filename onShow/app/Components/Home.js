@@ -49,7 +49,7 @@ class Home extends Component {
           <TouchableHighlight
             underlayColor="rgba(34,26,38,0.1)"
             style={[styles.grid_item,styles.grid_left]}
-            onPress={() => this.pagePush('作品展示',explore)}
+            onPress={() => this.pagePush('作品展示',exploreList)}
           >
     					<View style={styles.slider_container}>
                  <Image style={styles.icon} source={require('./../Assets/map.png')} resizeMode={Image.resizeMode.contain}/>
