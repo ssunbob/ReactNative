@@ -1,34 +1,31 @@
 'use strict';
 
 import React, {
-  AppRegistry,
   Component,
   StyleSheet,
   View,
-  ScrollView,
-  Text,
-  Image,
+  WebView,
 } from 'react-native';
 
 import styles from '../Styles/Main';
+
+var DEFAULT_URL = 'http://500108.m.weimob.com/vshop/index';
 
 class shop extends Component {
 
   constructor(props){
     super(props);
-    this.state = {};
+    this.state = {
+      url: DEFAULT_URL,
+    };
   }
 
   render() {
     return (
-      <ScrollView>
-      <View style={styles.grid}>
-      <Text style={styles.welcome}>
-        Welcome to {this.props.title}!
-      </Text>
-      </View>
-
-      </ScrollView>
+        <View style={{flex:1}}>
+          <WebView source={{uri: this.state.url}} style={styles.container} startInLoadingState={true} javaScriptEnabled={true} domStorageEnabled={true}>
+          </WebView>
+        </View>
     );
   }
 }

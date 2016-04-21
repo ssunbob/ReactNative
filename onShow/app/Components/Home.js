@@ -16,7 +16,7 @@ import styles from '../Styles/Main';
 
 import gallery from '../Components/gallery';
 import devblog from '../Components/devblog';
-import explore from '../Components/explore';
+import exploreList from '../Components/exploreList';
 import ourteam from '../Components/ourteam';
 import aboutus from '../Components/aboutus';
 import shop from '../Components/shop';
