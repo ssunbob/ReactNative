@@ -8,6 +8,7 @@
   "dependencies": {
     "react": "^0.14.8",
     "react-native": "^0.24.0",
-    "react-native-swiper": "^1.4.3"
+    "react-native-swiper": "^1.4.3",
+    "react-native-htmlview":"^0.4.2"
   }
 }

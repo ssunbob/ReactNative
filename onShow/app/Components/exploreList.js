@@ -57,29 +57,45 @@ class exploreList extends Component {
 
   renderList(lists){
     return(
-      <TouchableHighlight
-        underlayColor="rgba(34,26,38,0.1)"
-        onPress={() =>
-          this.showListDetail(lists)
-        }
-      >
-      <View style = {styles.grid_row}>
-        <View style = {styles.grid_item}>
-          <View style = {styles.col_image}>
-          </View>
-          <View style={styles.col_content}>
-          <Image
-            source={{uri:lists.better_featured_image.source_url}}
-            style={styles.list_image}
-          />
-            <Text style={styles.list_header}>{lists.title.rendered}</Text>
 
-            <HTMLView  value={lists.excerpt.rendered}  />
 
-          </View>
-        </View>
+    <View style={styles.grid_row}>
+
+    <TouchableHighlight
+      underlayColor="rgba(34,26,38,0.1)"
+      onPress={() =>
+        this.showListDetail(lists)
+      }
+      style={styles.list_item}
+    >
+      <View style = {styles.col_item}>
+      <Image
+        source={{uri:lists.better_featured_image.source_url}}
+        style={styles.list_image}
+        resizeMode={Image.resizeMode.contain}
+      />
       </View>
-      </TouchableHighlight>
+
+
+    </TouchableHighlight>
+    <TouchableHighlight
+      underlayColor="rgba(34,26,38,0.1)"
+      onPress={() =>
+        this.showListDetail(lists)
+      }
+      style={styles.list_item}
+    >
+      <View style = {styles.col_item}>
+      <Text style={styles.list_header}>{lists.title.rendered}</Text>
+      <Text style={styles.list_meta}>
+        <HTMLView value={lists.excerpt.rendered}/>
+      </Text>
+      </View>
+
+
+    </TouchableHighlight>
+    </View>
+
     );
   }
   render() {
@@ -98,13 +114,11 @@ class exploreList extends Component {
     }
 
     return (
-      <ScrollView style={[styles.container,{paddingTop:60}]}>
-      <View style={styles.grid}>
+      <ScrollView style={[styles.grid,{paddingTop:60}]}>
         <ListView
         dataSource={this.dataSource.cloneWithRows(this.state.lists)}
         renderRow={this.renderList.bind(this)}
         />
-      </View>
       </ScrollView>
     );
   }

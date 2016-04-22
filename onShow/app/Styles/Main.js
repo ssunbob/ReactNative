@@ -48,7 +48,14 @@ const styles = StyleSheet.create({
   marginLeft:10/PixelRatio.get(),
   },
   col_image:{
-    flex:0.3,
+    flex:0.2,
+  },
+  list_item:{
+    flex:1,
+    backgroundColor:'#e7e7e7',
+    padding:20/PixelRatio.get(),
+    justifyContent:'center',
+    alignItems:'center',
   },
   list_header:{
     fontSize:18,
