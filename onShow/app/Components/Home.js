@@ -15,7 +15,7 @@ import React, {
 import styles from '../Styles/Main';
 
 import gallery from '../Components/gallery';
-import devblog from '../Components/devblog';
+import devblogList from '../Components/devblogList';
 import exploreList from '../Components/exploreList';
 import ourteam from '../Components/ourteam';
 import aboutus from '../Components/aboutus';
@@ -59,7 +59,7 @@ class Home extends Component {
           <TouchableHighlight
             underlayColor="rgba(34,26,38,0.1)"
             style={[styles.grid_item,styles.grid_right]}
-            onPress={() => this.pagePush('开发博客',devblog)}
+            onPress={() => this.pagePush('开发博客',devblogList)}
           >
     					<View style={styles.slider_container}>
                  <Image style={styles.icon} source={require('./../Assets/quill.png')} resizeMode={Image.resizeMode.contain}/>

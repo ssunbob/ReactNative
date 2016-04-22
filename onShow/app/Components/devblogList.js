@@ -18,9 +18,9 @@ import HTMLView from 'react-native-htmlview';
 
 import styles from '../Styles/Main';
 
-import exploreDetail from '../Components/exploreDetail';
+import devblogDetail from '../Components/devblogDetail';
 
-class exploreList extends Component {
+class devblogList extends Component {
 
   constructor(props){
     super(props);
@@ -29,7 +29,7 @@ class exploreList extends Component {
       loaded:false,
     };
 
-    this.REQUEST_URL = 'http://172.24.10.176/wordpress/wp-json/wp/v2/posts';
+    this.REQUEST_URL = 'http://172.24.10.176/wordpress/artspace3/wp-json/wp/v2/posts';
     this.dataSource = new ListView.DataSource({
       rowHasChanged:(row1,row2) => row1!== row2
     });
@@ -52,7 +52,7 @@ class exploreList extends Component {
   showListDetail(lists){
     this.props.navigator.push({
       title:lists.title.rendered,
-      component:exploreDetail,
+      component:devblogDetail,
       passProps:{lists}
     });
   }
@@ -70,11 +70,7 @@ class exploreList extends Component {
 
     >
       <View style = {styles.col_image}>
-      <Image
-        source={{uri:lists.better_featured_image.source_url}}
-        style={styles.image}
-        resizeMode={Image.resizeMode.contain}
-      />
+
       </View>
 
 
@@ -87,6 +83,7 @@ class exploreList extends Component {
       style={[styles.list_item,{flex:2}]}
     >
       <View style = {styles.col_item}>
+
       <Text style={styles.list_header}>{lists.title.rendered}</Text>
       <Text style={styles.list_meta}>
         <HTMLView value={lists.excerpt.rendered}/>
@@ -125,4 +122,4 @@ class exploreList extends Component {
   }
 }
 
-export {exploreList as default};
+export {devblogList as default};

@@ -47,9 +47,7 @@ const styles = StyleSheet.create({
   grid_right:{
   marginLeft:10/PixelRatio.get(),
   },
-  col_image:{
-    flex:0.2,
-  },
+
   list_item:{
     flex:1,
     backgroundColor:'#e7e7e7',
@@ -70,6 +68,13 @@ const styles = StyleSheet.create({
     color:'rgba(0,0,0,0.6)',
     marginBottom:6,
     textAlign:'left',
+  },
+  list_detail:{
+    fontSize:16,
+    fontFamily:'Helvetica Neue',
+    fontWeight:'300',
+    color:'rgba(0,0,0,0.8)',
+    lineHeight:26,
   },
   image:{
     width:100,
