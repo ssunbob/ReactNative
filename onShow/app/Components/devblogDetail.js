@@ -1,22 +1,21 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
+ * 开发博客－详情
+ * devblog－detail
  */
 'use strict';
 
 import styles from '../Styles/Main';
-// ../ shangyijimulu
+// ../ 上级目录
 import React, {
   StyleSheet,
   Text,
   View,
   ScrollView,
   ListView,
+  WebView,
   Image,
   ActivityIndicatorIOS,
 } from 'react-native';
-
-import HTMLView from 'react-native-htmlview';
 
 class devblogDetail extends React.Component{
 	constructor(props){
@@ -55,20 +54,39 @@ class devblogDetail extends React.Component{
         </View>
         );
     }
+let jscode = `
+    var img = document.getElementsByTagName("img");
+    var p = document.getElementsByTagName("p");
+    var section = document.getElementsByTagName("section");
+    for (var i=0;i<img.length;i++){
+      img[i].style.minWidth="95%";
+      img[i].style.maxWidth="95%";
+      img[i].style.height="auto";
+      img[i].style.display="block";
+      img[i].style.marginLeft="auto";
+      img[i].style.marginRight="auto";
+    }
+    for (var i=0;i<p.length;i++){
+      p[i].style.fontFamily='Helvetica Neue';
+      p[i].style.fontSize="16";
+    }
+    for (var i=0;i<section.length;i++){
+      section[i].style.fontFamily='Helvetica Neue';
+      section[i].style.fontSize="16";
+    }
+`;
 let lists = this.state.devblogDetail;
 		return(
-      <ScrollView style={[styles.grid,{paddingTop:60}]}
-        scrollEventThrottle={200}
-        contentInset={{top: 0}}>
-        <View style={styles.grid_row}>
-				<View style={styles.list_item}>
-
-					<HTMLView value={lists.content.rendered}/>
-
-				</View>
-        </View>
-      </ScrollView>
-			//</View>
+      <View style={[{flex:1},{paddingTop:60}]}>
+        <WebView source={{html: lists.content.rendered}}
+        style={styles.container}
+        injectedJavaScript={jscode}
+        allowsInlineMediaPlayback={true}
+        AutomaticallyAdjustContentInsets={true}
+        javaScriptEnabled={true}
+        domStorageEnabled={true}>
+        </WebView>
+      </View>
 		);
 	}
 }

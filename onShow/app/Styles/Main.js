@@ -78,8 +78,7 @@ const styles = StyleSheet.create({
   },
   image:{
     width:100,
-    height:150,
-    margin:6,
+    height:125,
   },
   icon:{
   width: 32,

@@ -1,3 +1,7 @@
+/**
+ * 开发博客－列表
+ * devblog－list
+ */
 'use strict';
 
 import React, {
@@ -13,8 +17,6 @@ import React, {
   TouchableHighlight,
   ActivityIndicatorIOS,
 } from 'react-native';
-
-import HTMLView from 'react-native-htmlview';
 
 import styles from '../Styles/Main';
 
@@ -53,28 +55,37 @@ class devblogList extends Component {
     this.props.navigator.push({
       title:lists.title.rendered,
       component:devblogDetail,
-      passProps:{lists}
+      rightButtonTitle: '回到主页',
+      onRightButtonPress: () => this.props.navigator.popToTop(),
+      passProps:{lists},
     });
   }
 
   renderList(lists){
+    let jscode = `
+        var p = document.getElementsByTagName("p");
+        for (var i=0;i<p.length;i++){
+          p[i].style.fontFamily='Helvetica Neue';
+          p[i].style.fontSize="16";
+        }
+    `;
     return(
     <View style={styles.grid_row}>
-
-    <TouchableHighlight
-      underlayColor="rgba(34,26,38,0.1)"
-      onPress={() =>
-        this.showListDetail(lists)
-      }
-      style={[styles.list_item,{flex:1}]}
-
-    >
-      <View style = {styles.col_image}>
-
-      </View>
-
-
-    </TouchableHighlight>
+      <TouchableHighlight
+        underlayColor="rgba(34,26,38,0.1)"
+        onPress={() =>
+          this.showListDetail(lists)
+        }
+        style={[styles.list_item,{flex:1}]}
+      >
+          <View style = {styles.col_image}>
+          <Image
+            source={{uri:lists.better_featured_image.source_url}}
+            style={styles.image}
+            resizeMode={Image.resizeMode.cover}
+          />
+          </View>
+      </TouchableHighlight>
     <TouchableHighlight
       underlayColor="rgba(34,26,38,0.1)"
       onPress={() =>
@@ -85,12 +96,19 @@ class devblogList extends Component {
       <View style = {styles.col_item}>
 
       <Text style={styles.list_header}>{lists.title.rendered}</Text>
-      <Text style={styles.list_meta}>
-        <HTMLView value={lists.excerpt.rendered}/>
-      </Text>
+      <WebView
+      source={{html: lists.excerpt.rendered}}
+      style={{
+        backgroundColor: 'transparent',
+        height: 85,
+        width: 230
+      }}
+      injectedJavaScript={jscode}
+      javaScriptEnabled={true}
+      domStorageEnabled={true}
+      scrollEnabled={false}>
+      </WebView>
       </View>
-
-
     </TouchableHighlight>
     </View>
 
