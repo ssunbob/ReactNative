@@ -21,10 +21,6 @@ import ourteam from '../Components/ourteam';
 import aboutus from '../Components/aboutus';
 import shop from '../Components/shop';
 
-import act1 from '../Components/act1';
-import act2 from '../Components/act2';
-import act3 from '../Components/act3';
-
 import Home_slider from '../Components/Home_slider';
 
 class Home extends Component {
@@ -41,12 +37,12 @@ class Home extends Component {
       passProps:{title}
     });
   }
-
+//将主页的导航对象navigator传入子页Home_slider中,这样就可以在home_slider中使用this.props.navigator.push
   render() {
     return (
       <ScrollView>
       <View>
-      <Home_slider />
+      <Home_slider navigator={this.props.navigator}/>
       </View>
       <View style={styles.grid}>
 				<View style={styles.grid_row}>

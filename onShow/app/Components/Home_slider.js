@@ -21,12 +21,12 @@ import styles from '../Styles/Main';
 
 class Home_slider extends Component {
 
-  constructor(props){
-    super(props);
-    this.state = {};
-  }
+  // constructor(props){
+  //   super(props);
+  //   this.state = {};
+  // }
 
-  pagePush(component,title){
+  pagePush(title,component){
     this.props.navigator.push({
       title:title,
       component:component,
@@ -40,14 +40,14 @@ class Home_slider extends Component {
          <TouchableHighlight
            underlayColor="rgba(34,26,38,0.1)"
            style={styles.slider_container}
-           onPress={() => this.pagePush(act1,'活动页1')}
+           onPress={() => this.pagePush('活动页1',act1)}
          >
           <Image style={styles.slider_image} source={require('./../Assets/book.jpg')} resizeMode={Image.resizeMode.contain}/>
         </TouchableHighlight>
          <TouchableHighlight
            underlayColor="rgba(34,26,38,0.1)"
            style={styles.slider_container}
-           onPress={() => this.pagePush(act2,'活动页2')}
+           onPress={() => this.pagePush('活动页2',act2)}
          >
          <Image style={styles.slider_image} source={require('./../Assets/movie.jpg')} resizeMode={Image.resizeMode.contain}/>
          </TouchableHighlight>
@@ -55,7 +55,7 @@ class Home_slider extends Component {
          <TouchableHighlight
            underlayColor="rgba(34,26,38,0.1)"
            style={styles.slider_container}
-           onPress={() => this.pagePush(act3,'活动页3')}
+           onPress={() => this.pagePush('活动页3',act3)}
          >
          <Image style={styles.slider_image} source={require('./../Assets/music.jpg')} resizeMode={Image.resizeMode.contain}/>
          </TouchableHighlight>
