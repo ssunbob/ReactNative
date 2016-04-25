@@ -84,6 +84,12 @@ const styles = StyleSheet.create({
   width: 32,
   height: 32,
   },
+  slider_image:{
+    width:355,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   welcome: {
     fontSize: 20,
     textAlign: 'center',

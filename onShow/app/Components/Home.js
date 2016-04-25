@@ -21,6 +21,10 @@ import ourteam from '../Components/ourteam';
 import aboutus from '../Components/aboutus';
 import shop from '../Components/shop';
 
+import act1 from '../Components/act1';
+import act2 from '../Components/act2';
+import act3 from '../Components/act3';
+
 import Home_slider from '../Components/Home_slider';
 
 class Home extends Component {
