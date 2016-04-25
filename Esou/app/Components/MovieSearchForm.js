@@ -23,6 +23,7 @@ import React, {
 
 class MovieSearchForm extends React.Component {
 // class name - ml
+// app初始化
 constructor(props){
   super(props);
   this.dataSource = new ListView.DataSource({
@@ -33,6 +34,7 @@ constructor(props){
     loaded:true,//seart search
     moviesearchHistory:[],
   }
+  //读取搜索历史缓存
   AsyncStorage.getItem('moviesearchHistory')
     .then((moviesearchHistory) =>{
         if (moviesearchHistory) {
@@ -42,6 +44,7 @@ constructor(props){
       }
     });
 }
+//搜索
 async search(item){
   try{
     await this.setState({
@@ -52,7 +55,7 @@ async search(item){
     console.log(error);
   }
 }
-
+//删除搜索历史缓存
 deleteMovieSearchHistoryItem(item){
   let newMovieSearchHistory = new Set(this.state.moviesearchHistory);
   newMovieSearchHistory.delete(item);
@@ -65,14 +68,18 @@ deleteMovieSearchHistoryItem(item){
       //bendi cunchu
     );
 }
+//显示搜索列表
 renderMovieSearchHistoryList(item){
   return(
+    //点击文字搜索
+        //点击垃圾桶删除当前搜索历史项
     <TouchableHighlight
       underlayColor="rgba(34,26,38,0.1)"
       onPress={() => this.search(item)
       }
     >
     <View style = {styles.item}>
+
     <TouchableHighlight
     onPress={() => this.deleteMovieSearchHistoryItem(item)}
     underlayColor="rgba(34,26,38,0.1)">
@@ -87,7 +94,7 @@ renderMovieSearchHistoryList(item){
     </TouchableHighlight>
     );
 }
-
+//初始化搜索历史列表
 moviesearchHistory(){
   let newMovieSearchHistory = [...new Set([this.state.query,...this.state.moviesearchHistory])]
 // zhuijia shuzu
@@ -101,6 +108,7 @@ moviesearchHistory(){
     );
 // 改变数组
 }
+// 调用接口进行搜索
   fetchData(){
     this.moviesearchHistory();
     this.setState({

@@ -34,6 +34,7 @@ class MovieSearchResult extends React.Component {
 
     this.REQUEST_URL = `http://api.douban.com/v2/movie/search`;
   }
+  //分页查询
   requestURL(
     url = `http://api.douban.com/v2/movie/search`,
     count = this.state.count,
